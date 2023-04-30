@@ -31,9 +31,9 @@ if image_file is not None:
 
     with col2:
         st.write('Inferenced image')
-        if device == 'cuda':
-            detect(weights="best.pt", source=uploaded_img_path, save_txt=True, device=0) 
-        else: 
-            detect(weights="best.pt", source=uploaded_img_path, save_txt=True, device='cpu')
+        # if device == 'cuda':
+        #     detect(weights="models/best.pt", source=uploaded_img_path, save_txt=True, device=0) 
+        # else: 
+        #     detect(weights="models/best.pt", source=uploaded_img_path, save_txt=True, device='cpu')
 
         
