@@ -22,7 +22,7 @@ deta = Deta(st.secrets['DETA_KEY'])
 
 # Create a new database "example-db"
 # If you need a new database, just use another name.
-db = deta.Base("example-db")
+db = deta.Base("recipes")
 
 # If the user clicked the submit button,
 # write the data from the form to the database.
