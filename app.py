@@ -36,7 +36,7 @@ image_file = st.file_uploader("Please upload a food image",type=['png','jpeg','j
 if image_file is not None:
     file_details = {"FileName": image_file.name,"FileType": image_file.type}
     st.write(file_details)
-    db2.put(image_file)
+    db2.put(image_file.name, image_file)
     st.success("Saved Image")
     
 
