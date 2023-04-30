@@ -9,7 +9,7 @@ import streamlit as st
 from streamlit_lottie import st_lottie
 from deta import Deta
 
-
+deta = Deta(st.secrets["DETA_KEY"])
 db = deta.Drive("user-images")
 
 image_file = st.file_uploader("Please upload a food image",type=['png','jpeg','jpg'])
