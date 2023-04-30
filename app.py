@@ -7,6 +7,7 @@ import subprocess
 
 import streamlit as st
 from streamlit_lottie import st_lottie
+import database as db
 
 st.write('Hello world!')
 cwd = os.getcwd()
