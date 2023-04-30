@@ -4,6 +4,7 @@ import requests
 import os
 import shutil
 import subprocess
+from detect import detect
 
 import streamlit as st
 from streamlit_lottie import st_lottie
@@ -23,12 +24,16 @@ if image_file is not None:
     st.success('Successfully saved image')
 
     with col1:
+        st.write('Original image')
         uploaded_img_path = db.get(image_file.name)
         uploaded_img = Image.open(uploaded_img_path)
-
-        st.write('Original image')
-        st.write(uploaded_img_path)
         st.image(uploaded_img, use_column_width=True)
 
     with col2:
         st.write('Inferenced image')
+        if device == 'cuda':
+            detect(weights="best.pt", source=uploaded_img_path, save_txt=True, device=0) 
+        else: 
+            detect(weights="best.pt", source=uploaded_img_path, save_txt=True, device='cpu')
+
+        
