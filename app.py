@@ -21,25 +21,28 @@ if image_file is not None:
     with col1:
         st.image(img, caption='Uploaded Image', use_column_width='always')
 
-    ts = datetime.timestamp(datetime.now())
-    img_name = str(ts)+image_file.name
-    db.put(img_name, image_file)
+    # ts = datetime.timestamp(datetime.now())
+    # img_name = str(ts)+image_file.name
+    db.put(image_file.name, image_file)
     st.success("Saved Image")
 
+    with col2:
+        st.write('this is the second column')
+        st.image(db.get(image_file.name))
 
     #call Model prediction--
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
-    model.cuda() if device == 'cuda' else model.cpu()
-    pred = model(imgpath)
-    pred.render()  # render bbox in image
-    for im in pred.ims:
-        im_base64 = Image.fromarray(im)
-        db.put(f'{img_name}_pred', im_base64)
+    # model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
+    # model.cuda() if device == 'cuda' else model.cpu()
+    # pred = model(imgpath)
+    # pred.render()  # render bbox in image
+    # for im in pred.ims:
+    #     im_base64 = Image.fromarray(im)
+    #     db.put(f'{img_name}_pred', im_base64)
 
-    #--Display predicton   
-    img_ = Image.open(db.get(f'{img_name}_pred'))
-    with col2:
-        st.image(img_, caption='Model Prediction(s)', use_column_width='always')
+    # #--Display predicton   
+    # img_ = Image.open(db.get(f'{img_name}_pred'))
+    # with col2:
+    #     st.image(img_, caption='Model Prediction(s)', use_column_width='always')
     
 
 
