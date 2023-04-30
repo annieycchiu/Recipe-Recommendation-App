@@ -29,6 +29,16 @@ db_content = db.fetch().items
 st.write(db_content)
 
 
+db2 = deta.Drive("user-images")
+
+image_file = st.file_uploader("Please upload a food image",type=['png','jpeg','jpg'])
+
+if image_file is not None:
+    file_details = {"FileName": image_file.name,"FileType": image_file.type}
+    st.write(file_details)
+    db2.put(image_file)
+    st.success("Saved Image")
+    
 
 
 # import torch
