@@ -4,7 +4,7 @@ import requests
 import os
 import shutil
 import subprocess
-import detect
+# import detect
 
 import streamlit as st
 from streamlit_lottie import st_lottie
