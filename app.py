@@ -1,6 +1,13 @@
-import streamlit as st
-from deta import Deta
+import torch
 from PIL import Image
+import requests
+import os
+import shutil
+import subprocess
+
+import streamlit as st
+from streamlit_lottie import st_lottie
+from deta import Deta
 
 
 # Connect to Deta Base with your Data Key
