@@ -27,6 +27,7 @@ if image_file is not None:
         uploaded_img = Image.open(uploaded_img_path)
 
         st.write('Original image')
+        st.write(uploaded_img_path)
         st.image(uploaded_img, use_column_width=True)
 
     with col2:
