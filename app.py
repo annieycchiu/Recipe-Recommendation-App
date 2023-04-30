@@ -1,43 +1,44 @@
+import torch
+from PIL import Image
+import requests
+import os
+import shutil
+import subprocess
+
 import streamlit as st
+from streamlit_lottie import st_lottie
 from deta import Deta
 
-# Data to be written to Deta Base
-with st.form("form"):
-    name = st.text_input("Your name")
-    age = st.number_input("Your age")
-    submitted = st.form_submit_button("Store in database")
 
-
-# Connect to Deta Base with your Data Key
-deta = Deta(st.secrets["DETA_KEY"])
-
-# Create a new database "example-db"
-# If you need a new database, just use another name.
-db = deta.Base("recipes")
-
-# If the user clicked the submit button,
-# write the data from the form to the database.
-# You can store any data you want here. Just modify that dictionary below (the entries between the {}).
-if submitted:
-    db.put({"name": name, "age": age})
-
-"---"
-"Here's everything stored in the database:"
-# This reads all items from the database and displays them to your app.
-# db_content is a list of dictionaries. You can do everything you want with it.
-db_content = db.fetch().items
-st.write(db_content)
-
-
-db2 = deta.Drive("user-images")
+db = deta.Drive("user-images")
 
 image_file = st.file_uploader("Please upload a food image",type=['png','jpeg','jpg'])
+col1, col2 = st.columns(2)
 
 if image_file is not None:
-    file_details = {"FileName": image_file.name,"FileType": image_file.type}
-    st.write(file_details)
-    db2.put(image_file.name, image_file)
+    img = Image.open(image_file)
+    with col1:
+        st.image(img, caption='Uploaded Image', use_column_width='always')
+
+    ts = datetime.timestamp(datetime.now())
+    img_name = str(ts)+image_file.name
+    db.put(img_name, image_file)
     st.success("Saved Image")
+
+
+    #call Model prediction--
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True) 
+    model.cuda() if device == 'cuda' else model.cpu()
+    pred = model(imgpath)
+    pred.render()  # render bbox in image
+    for im in pred.ims:
+        im_base64 = Image.fromarray(im)
+        db.put(f'{img_name}_pred', im_base64)
+
+    #--Display predicton   
+    img_ = Image.open(db.get(f'{img_name}_pred'))
+    with col2:
+        st.image(img_, caption='Model Prediction(s)', use_column_width='always')
     
 
 
