@@ -23,7 +23,7 @@ python_allrecipes==0.3.1
 PyYAML==6.0
 PyYAML==6.0
 Requests==2.29.0
-scipy==1.10.1
+scipy
 seaborn==0.12.2
 setuptools==67.7.0
 streamlit==1.21.0
