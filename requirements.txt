@@ -4,10 +4,10 @@ coremltools==6.3.0
 Flask==2.2.3
 GitPython==3.1.31
 GitPython==3.1.31
-ipython==7.6.0
+ipython
 matplotlib
 mss
-numpy==1.24.2
+numpy
 onnx==1.13.1
 onnxruntime==1.14.1
 onnxsim==0.4.26
