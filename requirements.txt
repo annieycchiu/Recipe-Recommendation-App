@@ -49,3 +49,4 @@ setuptools>=65.5.1 # Snyk vulnerability fix
 # ultralytics  # HUB https://hub.ultralytics.com
 
 streamlit
+streamlit_lottie
