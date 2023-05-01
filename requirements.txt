@@ -6,7 +6,7 @@ GitPython==3.1.31
 GitPython==3.1.31
 ipython==7.6.0
 matplotlib
-mss==9.0.1
+mss
 numpy==1.24.2
 onnx==1.13.1
 onnxruntime==1.14.1
