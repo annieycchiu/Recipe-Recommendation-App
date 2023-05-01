@@ -5,6 +5,8 @@ import os
 import shutil
 import random
 import detect
+import cv2
+import numpy as np
 
 import streamlit as st
 from streamlit_lottie import st_lottie
@@ -16,6 +18,7 @@ cwd = os.getcwd()
 banner_img = Image.open('statics/food-banner.png')
 st.image(banner_img, use_column_width=True)
 
+image_file = None
 
 selected = option_menu(
     menu_title=None,
@@ -33,61 +36,52 @@ with open('data_food_robo.yaml') as f:
 
 cat_list = [cat[1:-1] for cat in categories.split(', ')]
 
+image_file_name = None
 
 if selected == "What's on your plate?":
     col1, col2 = st.columns(2)
     image_file = st.file_uploader('',type=['png', 'jpeg', 'jpg'])
 
+
     if image_file is not None:
+        print(image_file)
+        image = Image.open(image_file)
+        img_array = np.array(image)
 
         with col1:
             st.write('Original image')
             original_img = Image.open(image_file)
             st.image(original_img, use_column_width=True)
 
-            with open(os.path.join(f'{cwd}/user_uploads', image_file.name), "wb") as f: 
+            with open(f'{cwd}/user_uploads/{image_file.name}', "wb") as f: 
                 f.write(image_file.getbuffer())    
                 st.success("Saved File")
 
         with col2:
             st.write('Inferenced image')
 
-            # Check Folder is exists or Not
-            folderPath = f'{cwd}/inferenced_imgs'
-            if os.path.exists(folderPath):    
-                # Delete Folder code
-                shutil.rmtree(folderPath)
-
-            
-            detect.run(source='user_uploads', 
-                       weights='best.pt', 
-                       project=f'{cwd}', 
-                       name='inferenced_imgs', 
-                       save_txt=True)
-            
-            inferred_img = os.path.join('inferenced_imgs/', image_file.name)
+            inferred_img, inferred_label, _ = detect.run(
+                objs=[ cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR) ],
+                weights='best.pt'
+                )
+                        
             st.image(inferred_img, use_column_width=True)
+            st.write(inferred_label)
+
+        if inferred_label not in st.session_state:
+            st.session_state.inferred_label = inferred_label
 
 
-elif selected == "Recipe Recommendations":
-    image_file_name = 'pizza_salad'
-    labels_path = f'inferenced_imgs/labels/{image_file_name}.txt'
-    with open(labels_path) as f:
-        lines = f.readlines()
-        labels = set()
-        for line in lines:
-            labels.add(line.split(' ')[0])
 
-    labels = list(labels)
-    labels_w = []
-    for num in labels:
-        labels_w.append(cat_list[int(num)])
+if selected == "Recipe Recommendations":
+    inferred_label = st.session_state.inferred_label
 
+    labels = list(set(inferred_label))
 
-    for ingre in labels_w:
+    for ingre in labels:
         search_string = ingre
         query_result = AllRecipes.search(search_string)
-        num = random.randint(0, len(query_result))
+        num = random.randint(0, len(query_result)-1)
         recipe = query_result[num]
 
         name = recipe['name']
