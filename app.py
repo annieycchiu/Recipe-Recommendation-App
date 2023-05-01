@@ -66,7 +66,6 @@ if selected == "What's on your plate?":
                 )
                         
             st.image(inferred_img, use_column_width=True)
-            st.write(inferred_label)
 
         if inferred_label not in st.session_state:
             st.session_state.inferred_label = inferred_label
