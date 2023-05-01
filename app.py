@@ -53,10 +53,6 @@ if selected == "What's on your plate?":
             original_img = Image.open(image_file)
             st.image(original_img, use_column_width=True)
 
-            with open(f'{cwd}/user_uploads/{image_file.name}', "wb") as f: 
-                f.write(image_file.getbuffer())    
-                st.success("Saved File")
-
         with col2:
             st.write('Inferenced image')
 
