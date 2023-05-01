@@ -3,7 +3,6 @@ from PIL import Image
 import requests
 import os
 import shutil
-import subprocess
 import random
 import detect
 
