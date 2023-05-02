@@ -20,6 +20,8 @@ st.image(banner_img, use_column_width=True)
 
 image_file = None
 
+st.set_page_config(layout='wide')
+
 selected = option_menu(
     menu_title=None,
     options=["What's on your plate", "Recipe Recommendations"],
