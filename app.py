@@ -104,7 +104,7 @@ if selected == "Recipe Recommendations":
                 st.write(f'**Servings**: {servings}')
                 st.write('**Ingredients**:')
                 for ingre in ingres:
-                    st.write(f'  {ingre}')
+                    st.write(f'- {ingre}')
 
             st.write('---')
     
