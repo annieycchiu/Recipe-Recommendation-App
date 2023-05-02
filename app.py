@@ -109,4 +109,4 @@ if selected == "Recipe Recommendations":
             st.write('---')
     
     except:
-        st.write('Please upload an image for detection first! :camera_with_flash:')
+        st.write('#### Please upload an image for detection first! :camera_with_flash:')
