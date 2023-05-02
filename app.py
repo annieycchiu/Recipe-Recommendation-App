@@ -97,12 +97,12 @@ if selected == "Recipe Recommendations":
             with col1:
                 st.subheader(name)
                 st.image(image, use_column_width=True)
-                st.write(f'Rating: {rate}')
+                st.write(f'**Rating**: {rate}')
                 st.write(f'[More details >]({url})')
             with col2:
                 st.subheader('')
-                st.write(f'Servings: {servings}')
-                st.write('Ingredients:')
+                st.write(f'**Servings**: {servings}')
+                st.write('**Ingredients**:')
                 for ingre in ingres:
                     st.write(ingre)
 
