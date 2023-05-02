@@ -72,11 +72,9 @@ if selected == "What's on your plate":
 
 
 if selected == "Recipe Recommendations":
-    inferred_label = st.session_state.inferred_label
-
-    if inferred_label is None:
-        st.write('Please upload an image for detection first! :camera_with_flash:')
-    else: 
+    
+    try:
+        inferred_label = st.session_state.inferred_label
         labels = list(set(inferred_label))
 
         for ingre in labels:
@@ -109,3 +107,6 @@ if selected == "Recipe Recommendations":
                     st.write(ingre)
 
             st.write('---')
+    
+    except:
+        st.write('Please upload an image for detection first! :camera_with_flash:')
