@@ -92,7 +92,7 @@ if selected == "Recipe Recommendations":
             servings = detailed_recipe['nb_servings']
             ingres = detailed_recipe['ingredients']
 
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
 
             with col1:
                 st.subheader(name)
@@ -105,6 +105,8 @@ if selected == "Recipe Recommendations":
                 st.write('**Ingredients**:')
                 for ingre in ingres:
                     st.write(f'{ingre}')
+            with col3:
+                st.write('testing')
 
             st.write('---')
     
