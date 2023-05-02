@@ -39,6 +39,9 @@ cat_list = [cat[1:-1] for cat in categories.split(', ')]
 image_file_name = None
 
 if selected == "What's on your plate":
+    st.title("Food Image Recognition") 
+    st.write("### AI Model That Recongnizes Food & Recommends Recipes")
+
     col1, col2 = st.columns(2)
     image_file = st.file_uploader('',type=['png', 'jpeg', 'jpg'])
 
