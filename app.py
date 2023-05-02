@@ -22,8 +22,8 @@ image_file = None
 
 selected = option_menu(
     menu_title=None,
-    options=["What's on your plate?", "Recipe Recommendations"],
-    icons=['cloud-upload', 'bookmark-heart'],
+    options=["What's on your plate", "Recipe Recommendations"],
+    icons=['patch-question', 'bookmark-heart'],
     default_index=0,
     orientation='horizontal'
     )
@@ -38,7 +38,7 @@ cat_list = [cat[1:-1] for cat in categories.split(', ')]
 
 image_file_name = None
 
-if selected == "What's on your plate?":
+if selected == "What's on your plate":
     col1, col2 = st.columns(2)
     image_file = st.file_uploader('',type=['png', 'jpeg', 'jpg'])
 
