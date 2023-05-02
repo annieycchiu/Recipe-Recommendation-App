@@ -13,6 +13,8 @@ from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 from allrecipes import AllRecipes
 
+st.javascript('window.screen.width')
+
 cwd = os.getcwd()
 
 banner_img = Image.open('statics/food-banner.png')
